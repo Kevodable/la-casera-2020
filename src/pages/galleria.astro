@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+import Base from '../layouts/Base.astro';
+
+const edizioni = (await getCollection('galleria')).sort((a, b) => b.data.anno - a.data.anno);
+---
+
+<Base title="Galleria" description="Le foto e i video delle edizioni passate degli eventi de La Casera 2020.">
+  <section class="section">
+    <div class="wrap wrap-text reveal">
+      <p class="eyebrow">Galleria</p>
+      <h1 class="h-xl">Com'è andata finora.</h1>
+      <p class="lead">Facce, cibo, palco, folla: le foto delle edizioni passate.</p>
+    </div>
+  </section>
+
+  {
+    edizioni.length === 0 && (
+      <section class="section section--surface">
+        <div class="wrap wrap-text reveal">
+          <p class="lead">Le foto della prossima edizione arriveranno qui. Nel frattempo seguici su Instagram per gli aggiornamenti.</p>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    edizioni.map((ed, i) => (
+      <section class:list={['section', { 'section--surface': i % 2 === 0 }]}>
+        <div class="wrap">
+          <p class="eyebrow">{ed.data.anno}</p>
+          <h2 class="h-lg" style="margin-bottom:0.5rem">{ed.data.titolo}</h2>
+          {ed.data.descrizione && <p class="lead" style="margin-bottom:1.75rem">{ed.data.descrizione}</p>}
+
+          <div class="grid grid--auto-sm reveal">
+            <div class="card" style="padding:0;overflow:hidden">
+              <Image src={ed.data.copertina} alt={ed.data.copertinaAlt} width={480} height={320} style="width:100%;height:100%;object-fit:cover" />
+            </div>
+            {ed.data.foto.map((f) => (
+              <div class="card" style="padding:0;overflow:hidden">
+                <Image src={f.src} alt={f.alt} width={480} height={320} style="width:100%;height:100%;object-fit:cover" />
+              </div>
+            ))}
+          </div>
+
+          {ed.data.video.length > 0 && (
+            <div class="grid grid--2 reveal" style="margin-top:1.5rem">
+              {ed.data.video.map((v) => (
+                <div class="card" style="padding:0;overflow:hidden;aspect-ratio:16/9">
+                  <iframe src={v.url} title={v.titolo} style="width:100%;height:100%;border:0" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    ))
+  }
+</Base>

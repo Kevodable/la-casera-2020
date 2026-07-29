@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import associazione from '../data/associazione.json';
+import { site, withBase } from '../lib/site';
+
+const direttivo = (await getCollection('direttivo')).sort((a, b) => a.data.ordine - b.data.ordine);
+---
+
+<Base title={associazione.titolo} description={associazione.sottotitolo}>
+  <section class="section">
+    <div class="wrap wrap-text reveal">
+      <p class="eyebrow">Associazione</p>
+      <h1 class="h-xl">{associazione.titolo}</h1>
+      <p class="lead">{associazione.sottotitolo}</p>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap wrap-text prose reveal">
+      <h2>{associazione.storia.titolo}</h2>
+      <p>{associazione.storia.testo}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap-text prose reveal">
+      <h2>{associazione.missione.titolo}</h2>
+      <p>{associazione.missione.testo}</p>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap">
+      <p class="eyebrow">Come lavoriamo</p>
+      <div class="grid grid--auto">
+        {
+          associazione.valori.map((v) => (
+            <div class="card reveal">
+              <p class="h-sm" style="margin-bottom:0.5rem">
+                {v.titolo}
+              </p>
+              <p class="small">{v.testo}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">{associazione.direttivo.titolo}</p>
+      <p class="lead" style="margin-bottom:2rem">{associazione.direttivo.testo}</p>
+      {
+        direttivo.length > 0 && (
+          <div class="grid grid--auto-sm reveal">
+            {direttivo.map((persona) => (
+              <div class="card" style="text-align:center">
+                {persona.data.foto && (
+                  <Image
+                    src={persona.data.foto}
+                    alt=""
+                    width={120}
+                    height={120}
+                    style="border-radius:var(--r-pill);object-fit:cover;margin-inline:auto"
+                  />
+                )}
+                <p class="h-sm" style="margin-top:0.75rem">
+                  {persona.data.nome}
+                </p>
+                <p class="small">{persona.data.ruolo}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    site.legale.statutoPdf && (
+      <section class="section section--surface">
+        <div class="wrap wrap-text reveal">
+          <p class="eyebrow">{associazione.statuto.titolo}</p>
+          <p class="lead" style="margin-bottom:1.5rem">
+            {associazione.statuto.testo}
+          </p>
+          <a
+            class="btn btn--primary"
+            href={site.legale.statutoPdf.startsWith('http') ? site.legale.statutoPdf : withBase(site.legale.statutoPdf)}
+            target="_blank"
+            rel="noopener"
+          >
+            Scarica lo statuto (PDF)
+          </a>
+        </div>
+      </section>
+    )
+  }
+</Base>

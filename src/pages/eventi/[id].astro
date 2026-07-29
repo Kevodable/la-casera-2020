@@ -1,0 +1,304 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Mappa from '../../components/Mappa.astro';
+import { dataLunga, mailtoUrl, site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const eventi = await getCollection('eventi');
+  return eventi.map((evento) => ({ params: { id: evento.id }, props: { evento } }));
+}
+
+const { evento } = Astro.props;
+const { Content } = await render(evento);
+const d = evento.data;
+---
+
+<Base
+  title={d.titolo}
+  description={d.descrizione}
+  skin={d.skin}
+  headerCta={d.preiscrizione.attiva ? { testo: '🎉 Pre-iscriviti', url: `/eventi/${evento.id}#iscrizione` } : undefined}
+  progress
+>
+  <section class="section hero">
+    <div class="wrap hero__grid">
+      <div class="reveal">
+        {d.annullato && <p class="badge" style="background:var(--accent);color:var(--c-ink)">Evento annullato</p>}
+        <p class="badge">
+          <span class="badge__dot">●</span> {dataLunga(d.data)}
+        </p>
+        <h1 class="h-hero">{d.titolo}</h1>
+        {d.sottotitolo && <p class="lead">{d.sottotitolo}</p>}
+        <p class="small">
+          {d.orari} · 📍 {d.luogo.nome}, {d.luogo.citta} ({d.luogo.provincia})
+        </p>
+        {
+          d.marquee.length > 0 && (
+            <p class="small" style="margin-top:0.75rem;text-transform:uppercase;letter-spacing:0.08em">
+              {d.marquee.join(' · ')}
+            </p>
+          )
+        }
+        {
+          d.preiscrizione.attiva && !d.annullato && (
+            <div class="btn-row" style="margin-top:1.5rem">
+              <a class="btn btn--accent" href={`#iscrizione`}>
+                🎉 Pre-iscriviti
+              </a>
+            </div>
+          )
+        }
+      </div>
+      <div class="hero__photo reveal" aria-hidden="true">
+        {d.copertina ? (
+          <Image src={d.copertina} alt={d.copertinaAlt} width={640} height={800} style="width:100%;height:100%;object-fit:cover" />
+        ) : (
+          <span>Foto in arrivo</span>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap wrap-text prose reveal">
+      <Content />
+    </div>
+  </section>
+
+  {
+    d.highlights.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow">Cosa trovi</p>
+          <div class="grid grid--auto reveal">
+            {d.highlights.map((h) => (
+              <div class="card card--hover">
+                <p style="font-size:1.75rem;margin-bottom:0.75rem">{h.icona}</p>
+                <p class="h-sm" style="margin-bottom:0.4rem">
+                  {h.titolo}
+                </p>
+                <p class="small">{h.testo}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.programma.length > 0 && (
+      <section class="section section--surface">
+        <div class="wrap wrap-text">
+          <p class="eyebrow">Programma</p>
+          <ul class="programma reveal">
+            {d.programma.map((p) => (
+              <li class:list={['programma__voce', `programma__voce--${p.rilievo}`]}>
+                <span class="programma__ora">{p.ora}</span>
+                <span>
+                  <strong>{p.evento}</strong>
+                  {p.nota && <span class="small" style="display:block">{p.nota}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.lineup.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow">Line-up</p>
+          <div class="grid grid--auto-sm reveal">
+            {d.lineup.map((l) => (
+              <div class="card" style="text-align:center">
+                {l.foto && (
+                  <Image
+                    src={l.foto}
+                    alt=""
+                    width={120}
+                    height={120}
+                    style="border-radius:var(--r-pill);object-fit:cover;margin-inline:auto"
+                  />
+                )}
+                <p class="h-sm" style="margin-top:0.75rem">
+                  {l.nome}
+                </p>
+                <p class="small">
+                  {l.ruolo}
+                  {l.orario && ` · ${l.orario}`}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.cucina && (
+      <section class="section section--surface">
+        <div class="wrap wrap-text prose reveal">
+          <h2>{d.cucina.titolo}</h2>
+          <p>{d.cucina.testo}</p>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.faq.length > 0 && (
+      <section class="section">
+        <div class="wrap wrap-text">
+          <p class="eyebrow">Domande frequenti</p>
+          <div class="reveal">
+            {d.faq.map((f) => (
+              <details class="faq">
+                <summary>{f.domanda}</summary>
+                <p class="small">{f.risposta}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--surface">
+    <div class="wrap">
+      <p class="eyebrow">Dove</p>
+      <h2 class="h-md" style="margin-bottom:1rem">{d.luogo.nome}</h2>
+      <p class="small" style="margin-bottom:1rem">
+        {d.luogo.indirizzo}, {d.luogo.citta} ({d.luogo.provincia})
+        {d.luogo.noteParcheggio && <span style="display:block;margin-top:0.4rem">{d.luogo.noteParcheggio}</span>}
+      </p>
+      <Mappa query={d.luogo.mapsQuery} titolo={`Mappa: ${d.luogo.nome}`} />
+    </div>
+  </section>
+
+  {
+    d.preiscrizione.attiva && !d.annullato && (
+      <section id="iscrizione" class="section socio">
+        <div class="wrap reveal">
+          <p class="eyebrow socio__eyebrow">{d.preiscrizione.titolo}</p>
+          <h2 class="h-lg" style="color:var(--on-primary)">
+            {d.titolo}
+          </h2>
+          <p class="lead socio__lead">{d.preiscrizione.testo}</p>
+          {site.contatti.email ? (
+            <a
+              class="btn btn--solid-light"
+              href={mailtoUrl(site.contatti.email, `Pre-iscrizione: ${d.titolo}`, "Nome e cognome:\nNumero di persone:\n")}
+            >
+              Pre-iscriviti via email
+            </a>
+          ) : (
+            <p class="small" style="color:rgb(var(--c-bg) / 85%)">
+              Modulo in arrivo — nel frattempo scrivici su Instagram.
+            </p>
+          )}
+        </div>
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .hero__photo {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-lg);
+    border: 1px dashed var(--line-strong);
+    background: var(--surface);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-soft);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .socio {
+    background: var(--primary);
+    border-radius: var(--r-lg);
+    margin-inline: var(--gutter);
+  }
+
+  .socio__eyebrow {
+    color: rgb(var(--c-bg) / 85%);
+  }
+
+  .socio__lead {
+    color: rgb(var(--c-bg) / 92%);
+    max-width: var(--maxw-narrow);
+    margin-block: 1rem 1.75rem;
+  }
+
+  .programma {
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .programma__voce {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .programma__ora {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .programma__voce--medio .programma__ora,
+  .programma__voce--alto .programma__ora {
+    color: var(--primary);
+  }
+
+  .programma__voce--alto strong {
+    color: var(--primary);
+  }
+
+  .faq {
+    padding-block: 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-family: var(--font-display);
+  }
+
+  .faq p {
+    margin-top: 0.6rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__photo {
+      order: -1;
+    }
+  }
+</style>

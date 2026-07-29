@@ -47,10 +47,14 @@ La home (`src/pages/index.astro`) sceglie da sola la modalità (brief §1, §6 F
 
 ## Stato
 
-- **Fatto:** Home (entrambe le modalità), architettura completa (layout, componenti, content collections, design tokens, cookie banner GDPR, SEO/Open Graph/sitemap).
-- **Da fare:** pagine `/associazione`, `/eventi` (indice + dettaglio), `/soci`, `/sponsor`, `/contatti`, `/galleria`, `/news`, `/privacy`, `/cookie` — i dati testuali per molte di queste esistono già in `src/data/*.json`, mancano le pagine `.astro` che li usano. I link di navigazione verso queste rotte per ora non risolvono (404).
-- Le collection `galleria`, `sponsor`, `news`, `direttivo` sono vuote (nessun file in `src/content/*`): le relative sezioni della home si nascondono automaticamente finché non vengono aggiunti contenuti.
+- **Fatto:** Home (entrambe le modalità), `/associazione`, `/eventi` (indice + dettaglio dinamico da content collection), `/soci`, `/sponsor`, `/contatti` (con mappa a consenso, brief §7), `/galleria`.
+- **Da fare:** `/news`, `/privacy`, `/cookie` — i link di navigazione verso queste tre rotte per ora non risolvono (404). I form di contatto (soci, sponsor, contatti) sono CTA `mailto:` — nessun backend collegato: da sostituire con un vero servizio (Netlify Forms, Formspree...) quando ce n'è uno.
+- Le collection `galleria`, `sponsor`, `news`, `direttivo` sono vuote (nessun file in `src/content/*`): le relative sezioni di home/pagine si nascondono automaticamente finché non vengono aggiunti contenuti.
 
 ## Deploy
 
 Il sito è statico: `npm run build` produce `./dist/`, da caricare sullo spazio di hosting scelto. Nessuna configurazione server-side richiesta. Prima del primo deploy in produzione, aggiornare `SITE_URL` in `src/config.js` con il dominio definitivo (alimenta canonical, Open Graph e sitemap).
+
+### Anteprima su GitHub Pages
+
+Il push su `main` builda e pubblica automaticamente su GitHub Pages (`.github/workflows/deploy.yml`) all'indirizzo https://kevodable.github.io/la-casera-2020/. Astro usa un `base` diverso in questo caso (`GITHUB_PAGES=true` in `astro.config.mjs`) per far funzionare i link nel sottopercorso — in produzione, con dominio proprio, questa variabile non va impostata.

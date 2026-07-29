@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import soci from '../data/soci.json';
+import { site, mailtoUrl } from '../lib/site';
+---
+
+<Base title="Diventa socio" description={soci.sottotitolo}>
+  <section class="section hero">
+    <div class="wrap hero__grid">
+      <div class="reveal">
+        <p class="eyebrow">Diventa socio</p>
+        <h1 class="h-xl">{soci.titolo}</h1>
+        <p class="lead">{soci.sottotitolo}</p>
+      </div>
+      <div class="card quota reveal">
+        {soci.quota.importo ? (
+          <p class="h-xl" style="color:var(--primary)">
+            {soci.quota.importo}
+            <span class="small" style="font-weight:600"> / {soci.quota.periodo}</span>
+          </p>
+        ) : (
+          <p class="lead" style="margin:0">Quota {soci.quota.periodo}</p>
+        )}
+        {soci.quota.nota && <p class="small">{soci.quota.nota}</p>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap">
+      <p class="eyebrow">Cosa ottieni</p>
+      <ul class="benefici reveal">
+        {soci.benefici.map((b) => (
+          <li><span>✓</span><span>{b}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Come funziona</p>
+      <div class="grid grid--2 reveal">
+        {soci.comeFunziona.map((step) => (
+          <div class="card">
+            <p class="h-sm" style="margin-bottom:0.5rem">{step.titolo}</p>
+            <p class="small">{step.testo}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap reveal">
+      <p class="eyebrow">{soci.form.titolo}</p>
+      <p class="lead" style="color:var(--muted);margin-bottom:1.5rem;max-width:var(--maxw-narrow)">{soci.form.testo}</p>
+      {site.contatti.email ? (
+        <a class="btn btn--accent" href={mailtoUrl(site.contatti.email, 'Richiesta tesseramento', 'Nome e cognome:\nTelefono:\n')}>
+          Richiedi il tesseramento
+        </a>
+      ) : (
+        <p class="small">Scrivici su Instagram per iniziare: <a class="link-arrow" href={`https://instagram.com/${site.contatti.instagram}`} target="_blank" rel="noopener">@{site.contatti.instagram}</a></p>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .quota {
+    text-align: center;
+  }
+
+  .benefici {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    max-width: var(--maxw-text);
+  }
+
+  .benefici li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    font-size: var(--step-1);
+  }
+
+  .benefici li span:first-child {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  @media (max-width: 860px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

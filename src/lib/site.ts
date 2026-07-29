@@ -137,6 +137,17 @@ export const instagramUrl = (handle: string) =>
   `https://instagram.com/${handle.replace(/^@/, '')}`;
 
 /**
+ * Link "mailto:" per i form del sito: niente backend, quindi il CTA apre il
+ * client email dell'utente con oggetto/corpo precompilati. Da sostituire con
+ * un vero servizio di form (es. Netlify Forms, Formspree) quando ce n'e' uno.
+ */
+export const mailtoUrl = (email: string, subject: string, body?: string) => {
+  const params = new URLSearchParams({ subject });
+  if (body) params.set('body', body);
+  return `mailto:${email}?${params.toString()}`;
+};
+
+/**
  * Aggiunge il `base` configurato in astro.config.mjs a un percorso assoluto.
  * Serve per i link scritti a mano (nav, CTA, favicon...): astro:assets e il
  * routing di Astro gestiscono gia' da soli il base, questi no.

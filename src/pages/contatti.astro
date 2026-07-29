@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import Mappa from '../components/Mappa.astro';
+import contatti from '../data/contatti.json';
+import { site, instagramUrl, mailtoUrl, withBase } from '../lib/site';
+
+const { sede } = site;
+const mapsQuery = [sede.indirizzo, sede.citta, sede.provincia].filter(Boolean).join(', ');
+const risorse = contatti.stampa.risorse.filter((r) => r.url);
+---
+
+<Base title="Contatti" description={contatti.sottotitolo}>
+  <section class="section">
+    <div class="wrap contatti__grid">
+      <div class="reveal">
+        <p class="eyebrow">Contatti</p>
+        <h1 class="h-xl">{contatti.titolo}</h1>
+        <p class="lead" style="margin-bottom:1.75rem">{contatti.sottotitolo}</p>
+
+        <div class="contatti__links">
+          {site.contatti.email && <a href={mailtoUrl(site.contatti.email, contatti.form.titolo)}>✉️ {site.contatti.email}</a>}
+          {site.contatti.telefono && <a href={`tel:${site.contatti.telefono.replace(/\s/g, '')}`}>📞 {site.contatti.telefono}</a>}
+          {site.contatti.instagram && (
+            <a href={instagramUrl(site.contatti.instagram)} target="_blank" rel="noopener">
+              📷 Instagram · @{site.contatti.instagram}
+            </a>
+          )}
+          {site.contatti.facebook && (
+            <a href={site.contatti.facebook} target="_blank" rel="noopener">
+              📘 Facebook
+            </a>
+          )}
+        </div>
+
+        <div class="btn-row" style="margin-top:1.75rem">
+          {site.contatti.email ? (
+            <a class="btn btn--primary" href={mailtoUrl(site.contatti.email, contatti.form.titolo)}>
+              {contatti.form.titolo}
+            </a>
+          ) : (
+            <a class="btn btn--primary" href={instagramUrl(site.contatti.instagram)} target="_blank" rel="noopener">
+              {contatti.form.titolo}
+            </a>
+          )}
+        </div>
+        <p class="small" style="margin-top:0.75rem">{contatti.form.testo}</p>
+      </div>
+
+      <div class="reveal">
+        <Mappa query={mapsQuery} titolo="Mappa: dove siamo" />
+      </div>
+    </div>
+  </section>
+
+  <section id="stampa" class="section section--surface">
+    <div class="wrap wrap-text reveal">
+      <p class="eyebrow">{contatti.stampa.titolo}</p>
+      <p class="lead" style="margin-bottom:1.5rem">{contatti.stampa.testo}</p>
+
+      {contatti.stampa.referente.nome && (
+        <p class="small" style="margin-bottom:1.25rem">
+          {contatti.stampa.referente.nome} — {contatti.stampa.referente.ruolo}
+          {contatti.stampa.referente.email && <> · <a href={`mailto:${contatti.stampa.referente.email}`}>{contatti.stampa.referente.email}</a></>}
+          {contatti.stampa.referente.telefono && <> · {contatti.stampa.referente.telefono}</>}
+        </p>
+      )}
+
+      {risorse.length > 0 && (
+        <ul class="risorse">
+          {risorse.map((r) => (
+            <li><a class="link-arrow" href={r.url.startsWith('http') ? r.url : withBase(r.url)} target="_blank" rel="noopener">{r.titolo} →</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contatti__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  .contatti__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-weight: 600;
+  }
+
+  .risorse {
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 860px) {
+    .contatti__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

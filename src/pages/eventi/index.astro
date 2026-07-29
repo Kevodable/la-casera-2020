@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getEventiFuturi, getEventiPassati, dataMedia, withBase } from '../../lib/site';
+
+const futuri = await getEventiFuturi();
+const passati = await getEventiPassati();
+---
+
+<Base title="Eventi" description="Tutti gli eventi organizzati dall'Associazione La Casera 2020: quelli in arrivo e le edizioni passate.">
+  <section class="section">
+    <div class="wrap reveal">
+      <p class="eyebrow">Eventi</p>
+      <h1 class="h-xl">Feste, sagre e serate.</h1>
+      <p class="lead">Quello che organizziamo, in ordine di data.</p>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap">
+      <p class="eyebrow">In arrivo</p>
+      {
+        futuri.length > 0 ? (
+          <div class="grid grid--2 reveal">
+            {futuri.map((e) => (
+              <a class="card card--hover" href={withBase(`/eventi/${e.id}`)} style="display:block">
+                <p class="small">{dataMedia(e.data.data)}</p>
+                <p class="h-md" style="margin:0.4rem 0">
+                  {e.data.titolo}
+                </p>
+                <p class="small">{e.data.descrizione}</p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="lead">Nessun evento in programma al momento. Torna a trovarci presto.</p>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    passati.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow">Edizioni passate</p>
+          <div class="grid grid--auto-sm reveal">
+            {passati.map((e) => (
+              <a class="card" href={withBase(`/eventi/${e.id}`)} style="display:block">
+                <p class="small">{dataMedia(e.data.data)}</p>
+                <p class="h-sm" style="margin-top:0.4rem">
+                  {e.data.titolo}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Base>
