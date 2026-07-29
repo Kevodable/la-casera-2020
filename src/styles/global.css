@@ -381,10 +381,12 @@ ol {
    ============================================================ */
 
 .card {
+  display: block;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   padding: clamp(1.25rem, 3vw, 1.75rem);
+  text-decoration: none;
 }
 
 .card--hover {

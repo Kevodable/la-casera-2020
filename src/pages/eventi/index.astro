@@ -22,7 +22,7 @@ const passati = await getEventiPassati();
         futuri.length > 0 ? (
           <div class="grid grid--2 reveal">
             {futuri.map((e) => (
-              <a class="card card--hover" href={withBase(`/eventi/${e.id}`)} style="display:block">
+              <a class="card card--hover" href={withBase(`/eventi/${e.id}`)}>
                 <p class="small">{dataMedia(e.data.data)}</p>
                 <p class="h-md" style="margin:0.4rem 0">
                   {e.data.titolo}
@@ -45,7 +45,7 @@ const passati = await getEventiPassati();
           <p class="eyebrow">Edizioni passate</p>
           <div class="grid grid--auto-sm reveal">
             {passati.map((e) => (
-              <a class="card" href={withBase(`/eventi/${e.id}`)} style="display:block">
+              <a class="card" href={withBase(`/eventi/${e.id}`)}>
                 <p class="small">{dataMedia(e.data.data)}</p>
                 <p class="h-sm" style="margin-top:0.4rem">
                   {e.data.titolo}
