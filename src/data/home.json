@@ -1,0 +1,59 @@
+{
+  "heroIstituzionale": {
+    "titolo": "La Casera 2020",
+    "sottotitolo": "Facciamo succedere le cose a Cappella Maggiore.",
+    "testo": "Feste, sagre e serate che riempiono la piazza. Tutto organizzato da volontari del posto.",
+    "ctaPrimaria": { "testo": "Scopri chi siamo", "url": "/associazione" },
+    "ctaSecondaria": { "testo": "Diventa socio", "url": "/soci" }
+  },
+  "chiSiamo": {
+    "eyebrow": "Chi siamo",
+    "titolo": "Volontari, non organizzatori di professione.",
+    "testo": "Siamo un gruppo di persone di Cappella Maggiore. Ci mettiamo tempo, mani e serate libere per portare eventi sul territorio. Nessuno ci guadagna: quello che raccogliamo torna nella festa successiva.",
+    "cta": { "testo": "Leggi la nostra storia", "url": "/associazione" }
+  },
+  "cosaFacciamo": {
+    "eyebrow": "Cosa facciamo",
+    "titolo": "Quattro cose, tutto l'anno.",
+    "voci": [
+      {
+        "icona": "🎪",
+        "titolo": "Eventi",
+        "testo": "Feste, sagre e serate aperte a tutti. Dal palco alla cucina, organizziamo ogni pezzo."
+      },
+      {
+        "icona": "🤝",
+        "titolo": "Comunità",
+        "testo": "Un posto dove ritrovarsi. Chi entra a dare una mano trova un gruppo, non una mansione."
+      },
+      {
+        "icona": "🏔️",
+        "titolo": "Territorio",
+        "testo": "Lavoriamo con attività, fornitori e realtà del paese. Quello che spendiamo resta qui."
+      },
+      {
+        "icona": "🛠️",
+        "titolo": "Volontariato",
+        "testo": "Montaggio, cucina, sicurezza, pulizie. Serve gente: se hai due ore, servono anche a te."
+      }
+    ]
+  },
+  "socio": {
+    "eyebrow": "Diventa socio",
+    "titolo": "Vieni dentro.",
+    "testo": "Entri agli eventi, decidi cosa organizziamo, e trovi un gruppo che si diverte a lavorare.",
+    "cta": { "testo": "Voglio iscrivermi", "url": "/soci" }
+  },
+  "sponsor": {
+    "eyebrow": "Sponsor",
+    "titolo": "Chi ci sostiene",
+    "testo": "Senza di loro le nostre feste non esisterebbero.",
+    "cta": { "testo": "Diventa sponsor", "url": "/sponsor" }
+  },
+  "galleria": {
+    "eyebrow": "Galleria",
+    "titolo": "Com'è andata finora",
+    "testo": "Facce, cibo, palco, folla. Le foto delle edizioni passate.",
+    "cta": { "testo": "Vedi tutte le foto", "url": "/galleria" }
+  }
+}

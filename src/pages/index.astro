@@ -1,0 +1,276 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import home from '../data/home.json';
+import { site, getModalitaHome, getSponsor, dataLunga, compilati } from '../lib/site';
+
+const { modalita, evento } = await getModalitaHome();
+const numeri = compilati(site.numeri);
+const foto = await getCollection('galleria');
+const sponsor = await getSponsor();
+---
+
+<Base
+  title={site.nomeEsteso}
+  description={site.descrizioneSeo}
+  titleRaw
+  skin={modalita === 'evento' ? evento?.data.skin : undefined}
+>
+  <!-- HERO -->
+  <section class="section hero">
+    <div class="wrap hero__grid">
+      {
+        modalita === 'evento' && evento ? (
+          <div class="reveal">
+            <p class="badge">
+              <span class="badge__dot">●</span> Prossimo evento
+            </p>
+            <h1 class="h-hero">{evento.data.titolo}</h1>
+            {evento.data.sottotitolo && <p class="lead">{evento.data.sottotitolo}</p>}
+            <p class="lead">
+              {dataLunga(evento.data.data)} · {evento.data.orari}
+            </p>
+            <p class="small">
+              📍 {evento.data.luogo.nome}, {evento.data.luogo.citta} ({evento.data.luogo.provincia})
+            </p>
+            <div class="btn-row">
+              {evento.data.preiscrizione?.attiva && (
+                <a class="btn btn--accent" href={`/eventi/${evento.id}#iscrizione`}>
+                  🎉 Pre-iscriviti
+                </a>
+              )}
+              <a class="btn btn--ghost" href={`/eventi/${evento.id}`}>
+                Scopri l'evento
+              </a>
+            </div>
+          </div>
+        ) : (
+          <div class="reveal">
+            <p class="badge">
+              <span class="badge__dot">●</span> Associazione di volontariato
+            </p>
+            <h1 class="h-hero">{home.heroIstituzionale.titolo}</h1>
+            <p class="lead">{home.heroIstituzionale.testo}</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href={home.heroIstituzionale.ctaPrimaria.url}>
+                {home.heroIstituzionale.ctaPrimaria.testo}
+              </a>
+              <a class="btn btn--ghost" href={home.heroIstituzionale.ctaSecondaria.url}>
+                {home.heroIstituzionale.ctaSecondaria.testo}
+              </a>
+            </div>
+          </div>
+        )
+      }
+      <div class="hero__photo reveal" aria-hidden="true">
+        <span>Foto in arrivo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHI SIAMO -->
+  <section id="chi-siamo" class="section chi-siamo">
+    <div class="wrap chi-siamo__grid">
+      <div class="reveal">
+        <p class="eyebrow">{home.chiSiamo.eyebrow}</p>
+        <h2 class="h-lg">{home.chiSiamo.titolo}</h2>
+        <p class="lead">{home.chiSiamo.testo}</p>
+        <a class="link-arrow" href={home.chiSiamo.cta.url}>
+          {home.chiSiamo.cta.testo} →
+        </a>
+      </div>
+      {
+        numeri.length > 0 && (
+          <div class="grid grid--auto-sm reveal">
+            {numeri.map((n) => (
+              <div class="card">
+                <p class="h-xl" style="color:var(--primary)">
+                  {n.valore}
+                </p>
+                <p class="small">{n.etichetta}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- COSA FACCIAMO -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">{home.cosaFacciamo.eyebrow}</p>
+      <h2 class="h-lg" style="margin-bottom:2rem">{home.cosaFacciamo.titolo}</h2>
+      <div class="grid grid--auto">
+        {
+          home.cosaFacciamo.voci.map((v) => (
+            <div class="card card--hover reveal">
+              <p style="font-size:1.75rem;margin-bottom:0.75rem">{v.icona}</p>
+              <p class="h-sm" style="margin-bottom:0.4rem">
+                {v.titolo}
+              </p>
+              <p class="small">{v.testo}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PROSSIMO EVENTO (solo se la home e' forzata in modalita' istituzionale ma esiste comunque un evento futuro) -->
+  {
+    modalita === 'istituzionale' && evento && (
+      <section class="section section--dark">
+        <div class="wrap">
+          <p class="eyebrow">Prossimo evento</p>
+          <h2 class="h-lg" style="color:var(--on-ink)">
+            {evento.data.titolo}
+          </h2>
+          <p class="lead" style="color:var(--muted)">
+            {dataLunga(evento.data.data)} · {evento.data.luogo.citta}
+          </p>
+          <a class="btn btn--accent" href={`/eventi/${evento.id}`}>
+            Scopri l'evento
+          </a>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- GALLERIA (compare da sola quando ci sono foto in src/content/galleria) -->
+  {
+    foto.length > 0 && (
+      <section class="section section--surface">
+        <div class="wrap">
+          <div class="galleria__head">
+            <div>
+              <p class="eyebrow">{home.galleria.eyebrow}</p>
+              <h2 class="h-lg" style="margin:0">
+                {home.galleria.titolo}
+              </h2>
+            </div>
+            <a class="link-arrow" href={home.galleria.cta.url}>
+              {home.galleria.cta.testo} →
+            </a>
+          </div>
+          <div class="grid grid--auto-sm reveal">
+            {foto.slice(0, 8).map((f) => (
+              <div class="card" style="padding:0;overflow:hidden">
+                <p class="small" style="padding:0.75rem">
+                  {f.data.titolo}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- SPONSOR (compare da solo quando c'e' almeno uno sponsor attivo) -->
+  {
+    sponsor.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <div class="galleria__head">
+            <div>
+              <p class="eyebrow">{home.sponsor.eyebrow}</p>
+              <h2 class="h-lg" style="margin:0">
+                {home.sponsor.titolo}
+              </h2>
+            </div>
+            <a class="btn btn--ghost btn--sm" href={home.sponsor.cta.url}>
+              {home.sponsor.cta.testo}
+            </a>
+          </div>
+          <div class="grid grid--auto-sm reveal">
+            {sponsor.map((s) => (
+              <div class="card" style="display:flex;align-items:center;justify-content:center;aspect-ratio:3/2">
+                <p class="small">{s.data.nome}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- DIVENTA SOCIO -->
+  <section class="section socio">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow socio__eyebrow">{home.socio.eyebrow}</p>
+        <h2 class="h-xl" style="color:var(--on-primary)">{home.socio.titolo}</h2>
+        <p class="lead socio__lead">{home.socio.testo}</p>
+        <a class="btn btn--solid-light" href={home.socio.cta.url}>
+          {home.socio.cta.testo}
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .hero__photo {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-lg);
+    border: 1px dashed var(--line-strong);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-soft);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .chi-siamo__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  .galleria__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .socio {
+    background: var(--primary);
+    border-radius: var(--r-lg);
+    margin-inline: var(--gutter);
+  }
+
+  .socio__eyebrow {
+    color: rgb(var(--c-bg) / 85%);
+  }
+
+  .socio__lead {
+    color: rgb(var(--c-bg) / 92%);
+    max-width: var(--maxw-narrow);
+    margin-block: 1rem 1.75rem;
+  }
+
+  @media (max-width: 860px) {
+    .hero__grid,
+    .chi-siamo__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__photo {
+      order: -1;
+    }
+  }
+</style>

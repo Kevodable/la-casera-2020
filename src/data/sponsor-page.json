@@ -1,0 +1,58 @@
+{
+  "titolo": "Il tuo marchio davanti a migliaia di persone.",
+  "sottotitolo": "I nostri eventi portano gente in piazza in un solo giorno, con copertura social prima, durante e dopo. Se vuoi farti vedere sul territorio, questo è il posto.",
+  "numeri": {
+    "titolo": "I numeri",
+    "testo": "Dati delle ultime edizioni.",
+    "voci": [
+      { "valore": "", "etichetta": "Presenze medie a evento", "nota": "" },
+      { "valore": "", "etichetta": "Follower Instagram", "nota": "" },
+      { "valore": "", "etichetta": "Copertura social per evento", "nota": "" },
+      { "valore": "", "etichetta": "Edizioni organizzate", "nota": "" }
+    ]
+  },
+  "pacchetti": {
+    "titolo": "Pacchetti di visibilità",
+    "testo": "Tre livelli. Si può anche costruire qualcosa su misura: chiedi.",
+    "voci": [
+      {
+        "nome": "Bronzo",
+        "prezzo": "",
+        "descrizione": "La presenza di base, per farsi vedere senza impegnarsi troppo.",
+        "include": [
+          "Logo sul sito nella pagina sponsor",
+          "Logo sui materiali dell'evento",
+          "Menzione nei post di ringraziamento"
+        ]
+      },
+      {
+        "nome": "Argento",
+        "prezzo": "",
+        "descrizione": "Visibilità sul posto e sui canali social, prima e durante l'evento.",
+        "include": [
+          "Tutto il pacchetto Bronzo",
+          "Striscione nell'area evento",
+          "Post dedicato su Instagram",
+          "Logo sul palco"
+        ],
+        "inEvidenza": true
+      },
+      {
+        "nome": "Oro",
+        "prezzo": "",
+        "descrizione": "Il marchio integrato nell'evento, non appiccicato sopra.",
+        "include": [
+          "Tutto il pacchetto Argento",
+          "Marchio integrato nello show e nei video",
+          "Spazio proprio nell'area evento",
+          "Citazione dal palco durante la serata",
+          "Foto e video dell'evento utilizzabili sui tuoi canali"
+        ]
+      }
+    ]
+  },
+  "form": {
+    "titolo": "Chiedi il listino",
+    "testo": "Ti mandiamo pacchetti, prezzi e numeri dell'ultima edizione. Nessun impegno."
+  }
+}

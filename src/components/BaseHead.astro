@@ -1,0 +1,66 @@
+---
+import { site } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** URL assoluta o path assoluto dell'immagine di anteprima. */
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  /** Dati strutturati schema.org. Uno o piu' oggetti. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** Titolo gia' completo: non ci viene appeso il nome dell'associazione. */
+  titleRaw?: boolean;
+}
+
+const {
+  title,
+  description,
+  image = '/og-default.jpg',
+  imageAlt = site.nomeEsteso,
+  noindex = false,
+  jsonLd,
+  titleRaw = false,
+} = Astro.props;
+
+const titolo = titleRaw ? title : `${title} — ${site.nome}`;
+const canonical = new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', Astro.site);
+const ogImage = new URL(image, Astro.site);
+const struttura = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{titolo}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta name="theme-color" content="#4B5320" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Open Graph: e' l'anteprima che vede chi riceve il link su WhatsApp. -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.nomeEsteso} />
+<meta property="og:locale" content="it_IT" />
+<meta property="og:title" content={titolo} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={imageAlt} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={titolo} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{
+  struttura.map((dati) => (
+    <script type="application/ld+json" set:html={JSON.stringify(dati)} is:inline />
+  ))
+}

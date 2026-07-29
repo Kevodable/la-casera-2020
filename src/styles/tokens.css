@@ -1,0 +1,118 @@
+/*
+  DESIGN TOKEN — due livelli, come da brief §5.
+
+  1. Livello ASSOCIAZIONE (:root) — permanente. Deve reggere anche fra tre anni,
+     con altri eventi. Base neutra calda + verde militare del territorio.
+  2. Livello EVENTO ([data-skin="..."]) — temporaneo. Ogni evento sceglie la
+     propria skin dal CMS; sovrascrive solo i colori, mai la struttura.
+
+  Quando arrivano i materiali Nolita si aggiunge un blocco [data-skin="nolita"]
+  qui sotto con palette e font display del format: nient'altro va toccato.
+
+  I colori sono terne RGB senza funzione, cosi' da poterli comporre con
+  trasparenza al volo: rgb(var(--c-ink) / 12%).
+*/
+
+:root {
+  /* ---------- Colore: livello associazione ---------- */
+  --c-bg: 251 243 231; /* crema calda */
+  --c-ink: 31 27 22; /* testo / superfici scure */
+  --c-primary: 75 83 32; /* verde militare — CTA e accenti */
+  --c-accent: 232 178 61; /* ottone — evidenze */
+  --c-secondary: 138 109 59; /* legno — accenti secondari */
+  --c-surface: 255 255 255; /* card */
+
+  --bg: rgb(var(--c-bg));
+  --ink: rgb(var(--c-ink));
+  --primary: rgb(var(--c-primary));
+  --accent: rgb(var(--c-accent));
+  --secondary: rgb(var(--c-secondary));
+  --surface: rgb(var(--c-surface));
+
+  /* Testo su fondo primary/ink: sempre calcolato, mai hardcoded nelle pagine. */
+  --on-primary: rgb(var(--c-bg));
+  --on-ink: rgb(var(--c-bg));
+
+  --line: rgb(var(--c-ink) / 14%);
+  --line-strong: rgb(var(--c-ink) / 28%);
+  --muted: rgb(var(--c-ink) / 72%);
+  --muted-soft: rgb(var(--c-ink) / 58%);
+
+  /* ---------- Tipografia ---------- */
+  --font-display: 'Unbounded Variable', 'Unbounded', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* Scala fluida: il minimo e' pensato per mobile (oltre l'80% del traffico). */
+  --step--1: clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);
+  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --step-1: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  --step-2: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --step-3: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
+  --step-4: clamp(1.75rem, 1.3rem + 2.25vw, 2.625rem);
+  --step-5: clamp(2.25rem, 1.5rem + 3.75vw, 4rem);
+  --step-hero: clamp(2.75rem, 11vw, 6.5rem);
+
+  /* ---------- Spazio e forme ---------- */
+  --gutter: clamp(1.125rem, 4vw, 2rem);
+  --section-y: clamp(3.5rem, 8vw, 6rem);
+  --maxw: 1120px;
+  --maxw-text: 46rem;
+  --maxw-narrow: 34rem;
+
+  --r-sm: 12px;
+  --r: 16px;
+  --r-lg: 24px;
+  --r-pill: 100px;
+
+  --shadow-sm: 0 2px 10px rgb(var(--c-ink) / 6%);
+  --shadow: 0 12px 28px rgb(var(--c-ink) / 10%);
+  --shadow-lg: 0 20px 44px rgb(var(--c-ink) / 16%);
+  --shadow-cta: 0 10px 26px rgb(var(--c-primary) / 38%);
+  --shadow-cta-hover: 0 14px 32px rgb(var(--c-primary) / 52%);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --header-h: 68px;
+}
+
+/* ---------- Skin evento ---------- */
+
+/* Sagra calda — default, coincide con il livello associazione. */
+[data-skin='sagra'] {
+  --c-bg: 251 243 231;
+  --c-ink: 31 27 22;
+  --c-primary: 75 83 32;
+  --c-accent: 232 178 61;
+  --c-secondary: 138 109 59;
+  --c-surface: 255 255 255;
+}
+
+/* Notte neon — per eventi serali. */
+[data-skin='notte'] {
+  --c-bg: 23 19 38;
+  --c-ink: 245 240 255;
+  --c-primary: 138 158 74;
+  --c-accent: 244 224 77;
+  --c-secondary: 62 124 255;
+  --c-surface: 34 29 58;
+
+  --on-primary: rgb(23 19 38);
+}
+
+/* Estate pop — per eventi diurni. */
+[data-skin='estate'] {
+  --c-bg: 254 246 228;
+  --c-ink: 34 37 42;
+  --c-primary: 85 107 47;
+  --c-accent: 46 196 182;
+  --c-secondary: 255 210 63;
+  --c-surface: 255 255 255;
+}
+
+/*
+  Su skin scure il testo "ink" e' chiaro: le superfici scure della pagina
+  (footer, fascia location) devono invertirsi per restare leggibili.
+*/
+[data-skin='notte'] {
+  --line: rgb(var(--c-ink) / 18%);
+  --line-strong: rgb(var(--c-ink) / 32%);
+}

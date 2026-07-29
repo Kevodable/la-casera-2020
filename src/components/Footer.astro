@@ -1,0 +1,192 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-casera-invert.png';
+import { site, instagramUrl } from '../lib/site';
+
+const { contatti, sede, legale } = site;
+const anno = new Date().getFullYear();
+
+const indirizzo = [sede.indirizzo, [sede.cap, sede.citta].filter(Boolean).join(' '), sede.provincia && `(${sede.provincia})`]
+  .filter(Boolean)
+  .join(', ');
+
+const colonne = [
+  {
+    titolo: 'Associazione',
+    voci: [
+      { testo: 'Chi siamo', url: '/associazione' },
+      { testo: 'Diventa socio', url: '/soci' },
+      { testo: 'Diventa sponsor', url: '/sponsor' },
+      { testo: 'News', url: '/news' },
+    ],
+  },
+  {
+    titolo: 'Eventi',
+    voci: [
+      { testo: 'Tutti gli eventi', url: '/eventi' },
+      { testo: 'Galleria', url: '/galleria' },
+      { testo: 'Contatti', url: '/contatti' },
+      { testo: 'Area stampa', url: '/contatti#stampa' },
+    ],
+  },
+];
+---
+
+<footer class="site-footer section--dark">
+  <div class="wrap site-footer__inner">
+    <div class="site-footer__brand">
+      <Image src={logo} alt="" width={120} densities={[1, 2]} class="site-footer__logo" />
+      <div>
+        <p class="site-footer__name">{site.nomeEsteso}</p>
+        <p class="small">{site.payoff}</p>
+      </div>
+    </div>
+
+    {
+      colonne.map((col) => (
+        <nav class="site-footer__col" aria-label={col.titolo}>
+          <p class="site-footer__coltitle">{col.titolo}</p>
+          <ul>
+            {col.voci.map((v) => (
+              <li>
+                <a href={v.url}>{v.testo}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
+
+    <div class="site-footer__col">
+      <p class="site-footer__coltitle">Contatti</p>
+      <ul>
+        {contatti.email && (
+          <li>
+            <a href={`mailto:${contatti.email}`}>{contatti.email}</a>
+          </li>
+        )}
+        {contatti.telefono && (
+          <li>
+            <a href={`tel:${contatti.telefono.replace(/\s/g, '')}`}>{contatti.telefono}</a>
+          </li>
+        )}
+        {contatti.instagram && (
+          <li>
+            <a href={instagramUrl(contatti.instagram)} target="_blank" rel="noopener">
+              Instagram · @{contatti.instagram}
+            </a>
+          </li>
+        )}
+        {contatti.facebook && (
+          <li>
+            <a href={contatti.facebook} target="_blank" rel="noopener">
+              Facebook
+            </a>
+          </li>
+        )}
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap site-footer__legal">
+    <p class="small">
+      {legale.denominazione}
+      {indirizzo && <> · {indirizzo}</>}
+      {legale.codiceFiscale && <> · C.F. {legale.codiceFiscale}</>}
+      {legale.partitaIva && <> · P.IVA {legale.partitaIva}</>}
+    </p>
+    <p class="small site-footer__links">
+      <span>© {anno}</span>
+      <a href="/privacy">Privacy</a>
+      <a href="/cookie">Cookie</a>
+      <button type="button" data-cookie-riapri>Preferenze cookie</button>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: clamp(2.5rem, 6vw, 4rem) 1.5rem;
+  }
+
+  .site-footer__inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: clamp(1.75rem, 5vw, 3rem);
+  }
+
+  .site-footer__brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    grid-column: span 1;
+  }
+
+  .site-footer__logo {
+    height: 60px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .site-footer__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .site-footer__coltitle {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-soft);
+    margin-bottom: 0.85rem;
+  }
+
+  .site-footer ul {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .site-footer a {
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.2s var(--ease);
+  }
+
+  .site-footer a:hover {
+    color: var(--on-ink);
+  }
+
+  .site-footer__legal {
+    margin-top: clamp(2rem, 5vw, 3rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .site-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .site-footer__links button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

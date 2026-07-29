@@ -1,0 +1,38 @@
+{
+  "titolo": "Chi siamo",
+  "sottotitolo": "Un gruppo di volontari di Cappella Maggiore che organizza feste, sagre e serate sul territorio.",
+  "storia": {
+    "titolo": "Come è nata",
+    "testo": "Da compilare: raccontate in cinque righe come è nato il gruppo, chi c'era all'inizio e qual è stata la prima festa. Nomi, date e luoghi — niente frasi da statuto."
+  },
+  "missione": {
+    "titolo": "Perché lo facciamo",
+    "testo": "Perché un paese senza feste si spegne. Organizziamo eventi che fanno uscire di casa la gente, tengono viva la piazza e danno lavoro alle attività del posto."
+  },
+  "valori": [
+    {
+      "titolo": "Tutto volontario",
+      "testo": "Nessuno prende un compenso. Quello che avanza da un evento finanzia il successivo."
+    },
+    {
+      "titolo": "Aperto a tutti",
+      "testo": "Ingresso libero dove possiamo, prezzi onesti dove serve. Le nostre feste non escludono nessuno."
+    },
+    {
+      "titolo": "Radicati qui",
+      "testo": "Fornitori, artigiani e attività del territorio. Prima di cercare fuori, cerchiamo in paese."
+    },
+    {
+      "titolo": "Conti alla mano",
+      "testo": "Sappiamo quanto costa una festa e lo diciamo. Ai soci e agli sponsor rendiamo conto."
+    }
+  ],
+  "direttivo": {
+    "titolo": "Il direttivo",
+    "testo": "Le persone che rispondono di quello che facciamo."
+  },
+  "statuto": {
+    "titolo": "Statuto e documenti",
+    "testo": "Lo statuto completo dell'associazione, in PDF."
+  }
+}

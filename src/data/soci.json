@@ -1,0 +1,33 @@
+{
+  "titolo": "Vieni dentro.",
+  "sottotitolo": "Diventare socio costa poco e cambia il modo in cui vivi gli eventi: non li guardi, li fai.",
+  "quota": {
+    "importo": "",
+    "periodo": "all'anno",
+    "nota": "Da compilare: la quota associativa decisa dal direttivo."
+  },
+  "benefici": [
+    "Entri agli eventi dell'associazione",
+    "Voti in assemblea: decidi cosa organizziamo",
+    "Sconti e priorità sulle iniziative riservate ai soci",
+    "Entri in un gruppo che lavora e si diverte insieme"
+  ],
+  "comeFunziona": [
+    {
+      "titolo": "1. Mandi la richiesta",
+      "testo": "Compili il modulo qui sotto. Ti bastano due minuti."
+    },
+    {
+      "titolo": "2. Ti richiamiamo",
+      "testo": "Ti contattiamo per completare il tesseramento e rispondere alle tue domande."
+    },
+    {
+      "titolo": "3. Sei socio",
+      "testo": "Ricevi la tessera e da lì in poi decidi anche tu."
+    }
+  ],
+  "form": {
+    "titolo": "Richiedi il tesseramento",
+    "testo": "Nessun impegno: ti ricontattiamo noi per spiegarti tutto."
+  }
+}

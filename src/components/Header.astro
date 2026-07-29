@@ -1,0 +1,311 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-casera.png';
+import { site } from '../lib/site';
+
+interface Props {
+  /** CTA principale: cambia fra modalita' evento e modalita' istituzionale. */
+  cta?: { testo: string; url: string };
+  /** Barra di avanzamento della lettura: si usa sulle pagine evento, lunghe. */
+  progress?: boolean;
+}
+
+const { cta = { testo: 'Diventa socio', url: '/soci' }, progress = false } = Astro.props;
+
+const voci = [
+  { testo: 'Associazione', url: '/associazione' },
+  { testo: 'Eventi', url: '/eventi' },
+  { testo: 'Galleria', url: '/galleria' },
+  { testo: 'News', url: '/news' },
+  { testo: 'Sponsor', url: '/sponsor' },
+  { testo: 'Contatti', url: '/contatti' },
+];
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const attiva = (url: string) => path === url || path.startsWith(url + '/');
+---
+
+{progress && <div class="progress" id="scroll-progress" aria-hidden="true"><span></span></div>}
+
+<header class="site-header" id="site-header">
+  <div class="site-header__inner wrap">
+    <a class="brand" href="/">
+      <Image src={logo} alt="" width={112} densities={[1, 2]} class="brand__logo" />
+      <span class="brand__text">
+        <span class="brand__name">{site.nome}</span>
+        <span class="brand__kicker">Associazione</span>
+      </span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+    >
+      <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="visually-hidden">Apri il menu</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Navigazione principale">
+      <ul class="site-nav__list">
+        {
+          voci.map((v) => (
+            <li>
+              <a href={v.url} class:list={['site-nav__link', { 'is-active': attiva(v.url) }]}>
+                {v.testo}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="btn btn--primary btn--sm site-nav__cta" href={cta.url}>{cta.testo}</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .progress {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    height: 3px;
+    z-index: 60;
+    pointer-events: none;
+  }
+
+  .progress span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--primary);
+    transition: width 0.1s linear;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(var(--c-surface) / 88%);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: var(--header-h);
+    padding-block: 0.5rem;
+  }
+
+  /* Il logo si restringe quando si scorre: il contenuto guadagna spazio. */
+  :global(.is-scrolled) .brand__logo {
+    height: 38px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .brand__logo {
+    height: 48px;
+    width: auto;
+    transition: height 0.25s var(--ease);
+  }
+
+  .brand__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .brand__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+  }
+
+  .brand__kicker {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-soft);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    padding: 0.6rem;
+    cursor: pointer;
+    line-height: 0;
+  }
+
+  .nav-toggle__bars {
+    display: grid;
+    gap: 4px;
+  }
+
+  .nav-toggle__bars i {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .site-nav__list {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    list-style: none;
+  }
+
+  .site-nav__link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.35rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+    white-space: nowrap;
+  }
+
+  .site-nav__link:hover {
+    border-color: var(--line-strong);
+  }
+
+  .site-nav__link.is-active {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  @media (max-width: 960px) {
+    .site-nav__list {
+      gap: 0.85rem;
+    }
+
+    .site-nav__link {
+      font-size: 0.85rem;
+    }
+  }
+
+  /* Sotto gli 860px il menu diventa a comparsa. Senza JS resta aperto,
+     impilato sotto l'header: navigabile lo stesso. */
+  @media (max-width: 860px) {
+    :global(.js) .nav-toggle {
+      display: block;
+    }
+
+    .site-header__inner {
+      flex-wrap: wrap;
+    }
+
+    .site-nav {
+      order: 3;
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+      padding-block: 0.5rem 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    :global(.js) .site-nav {
+      display: none;
+    }
+
+    :global(.js) .site-nav.is-open {
+      display: flex;
+    }
+
+    .site-nav__list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .site-nav__list li + li {
+      border-top: 1px solid var(--line);
+    }
+
+    .site-nav__link {
+      display: block;
+      padding: 0.85rem 0.25rem;
+      font-size: 1rem;
+      border-bottom: none;
+      border-left: 3px solid transparent;
+      padding-left: 0.75rem;
+    }
+
+    .site-nav__link.is-active {
+      border-left-color: var(--primary);
+    }
+
+    .site-nav__cta {
+      justify-content: center;
+      padding-block: 0.85rem;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('site-nav');
+  const header = document.getElementById('site-header');
+
+  toggle?.addEventListener('click', () => {
+    const aperto = nav?.classList.toggle('is-open') ?? false;
+    toggle.setAttribute('aria-expanded', String(aperto));
+    toggle.querySelector('.visually-hidden')!.textContent = aperto
+      ? 'Chiudi il menu'
+      : 'Apri il menu';
+  });
+
+  // Chiude il menu quando si passa a desktop, altrimenti resta uno stato incoerente.
+  const mq = window.matchMedia('(min-width: 861px)');
+  mq.addEventListener('change', (e) => {
+    if (e.matches) {
+      nav?.classList.remove('is-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  const progress = document.getElementById('scroll-progress')?.firstElementChild as HTMLElement | null;
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const doc = document.documentElement;
+      header?.classList.toggle('is-scrolled', doc.scrollTop > 24);
+      document.documentElement.classList.toggle('is-scrolled', doc.scrollTop > 24);
+      if (progress) {
+        const max = doc.scrollHeight - doc.clientHeight;
+        progress.style.width = `${max > 0 ? Math.min(100, (doc.scrollTop / max) * 100) : 0}%`;
+      }
+      ticking = false;
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

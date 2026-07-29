@@ -1,0 +1,22 @@
+{
+  "titolo": "Parliamone.",
+  "sottotitolo": "Scrivici per qualsiasi cosa: un evento, una collaborazione, una domanda.",
+  "form": {
+    "titolo": "Scrivici",
+    "testo": "Rispondiamo di solito entro due o tre giorni."
+  },
+  "stampa": {
+    "titolo": "Area stampa",
+    "testo": "Materiali per giornali, Pro Loco e amministrazioni. Se ti serve altro, scrivici.",
+    "referente": {
+      "nome": "",
+      "ruolo": "Referente comunicazione",
+      "email": "",
+      "telefono": ""
+    },
+    "risorse": [
+      { "titolo": "Logo dell'associazione (PNG)", "url": "/press/logo-la-casera-2020.png" },
+      { "titolo": "Statuto dell'associazione (PDF)", "url": "" }
+    ]
+  }
+}

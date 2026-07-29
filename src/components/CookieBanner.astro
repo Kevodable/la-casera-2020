@@ -1,0 +1,253 @@
+---
+/*
+  Banner cookie con consenso granulare (brief §7).
+
+  Niente cookie di terze parti parte prima del consenso: la mappa Google e i
+  video incorporati restano bloccati e mostrano un segnaposto finche' l'utente
+  non accetta la categoria "contenuti esterni".
+
+  La scelta e' salvata in localStorage, non in un cookie: non serve un cookie
+  per ricordare che non si vogliono cookie.
+*/
+---
+
+<div class="cookie" id="cookie-banner" hidden role="dialog" aria-modal="false" aria-labelledby="cookie-titolo">
+  <div class="cookie__box">
+    <div class="cookie__testo">
+      <p class="cookie__titolo" id="cookie-titolo">Due parole sui cookie</p>
+      <p class="small">
+        Usiamo cookie tecnici per far funzionare il sito. Con il tuo consenso usiamo anche
+        statistiche anonime e contenuti esterni (mappe, video). Decidi tu.
+        <a href="/cookie">Leggi la cookie policy</a>.
+      </p>
+
+      <div class="cookie__opzioni" id="cookie-opzioni" hidden>
+        <label class="cookie__opzione">
+          <input type="checkbox" checked disabled />
+          <span>
+            <strong>Necessari</strong>
+            <span class="small">Servono a far funzionare il sito. Sempre attivi.</span>
+          </span>
+        </label>
+        <label class="cookie__opzione">
+          <input type="checkbox" id="cookie-statistiche" />
+          <span>
+            <strong>Statistiche</strong>
+            <span class="small">Quante persone visitano il sito, in forma anonima.</span>
+          </span>
+        </label>
+        <label class="cookie__opzione">
+          <input type="checkbox" id="cookie-esterni" />
+          <span>
+            <strong>Contenuti esterni</strong>
+            <span class="small">Mappa Google e video incorporati.</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cookie__azioni">
+      <button class="btn btn--primary btn--sm" data-cookie="tutto">Accetta tutto</button>
+      <button class="btn btn--ghost btn--sm" data-cookie="necessari">Solo necessari</button>
+      <button class="cookie__link" data-cookie="personalizza">Personalizza</button>
+      <button class="btn btn--primary btn--sm" data-cookie="salva" hidden>Salva le scelte</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 70;
+    padding: var(--gutter);
+    display: flex;
+    justify-content: center;
+  }
+
+  .cookie[hidden] {
+    display: none;
+  }
+
+  .cookie__box {
+    width: 100%;
+    max-width: var(--maxw);
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-lg);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    animation: cookie-in 0.35s var(--ease);
+  }
+
+  @keyframes cookie-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  }
+
+  .cookie__testo {
+    flex: 1 1 320px;
+  }
+
+  .cookie__titolo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .cookie__testo a {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .cookie__opzioni {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .cookie__opzione {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    cursor: pointer;
+  }
+
+  .cookie__opzione input {
+    margin-top: 0.3rem;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+    flex-shrink: 0;
+  }
+
+  .cookie__opzione span {
+    display: block;
+  }
+
+  .cookie__opzione strong {
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  .cookie__azioni {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .cookie__link {
+    background: none;
+    border: none;
+    padding: 0.4rem;
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
+
+<script>
+  type Consenso = { statistiche: boolean; esterni: boolean; v: number; ts: string };
+
+  const CHIAVE = 'lacasera:consenso-cookie';
+  const VERSIONE = 1;
+
+  const banner = document.getElementById('cookie-banner');
+  const opzioni = document.getElementById('cookie-opzioni');
+  const chkStat = document.getElementById('cookie-statistiche') as HTMLInputElement | null;
+  const chkEst = document.getElementById('cookie-esterni') as HTMLInputElement | null;
+  const btnSalva = document.querySelector<HTMLElement>('[data-cookie="salva"]');
+  const btnPers = document.querySelector<HTMLElement>('[data-cookie="personalizza"]');
+
+  function leggi(): Consenso | null {
+    try {
+      const raw = localStorage.getItem(CHIAVE);
+      if (!raw) return null;
+      const c = JSON.parse(raw) as Consenso;
+      return c.v === VERSIONE ? c : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function applica(c: Consenso) {
+    document.documentElement.dataset.consensoEsterni = String(c.esterni);
+    document.documentElement.dataset.consensoStatistiche = String(c.statistiche);
+    window.dispatchEvent(new CustomEvent('consenso-cookie', { detail: c }));
+  }
+
+  function salva(statistiche: boolean, esterni: boolean) {
+    const c: Consenso = { statistiche, esterni, v: VERSIONE, ts: new Date().toISOString() };
+    try {
+      localStorage.setItem(CHIAVE, JSON.stringify(c));
+    } catch {
+      /* navigazione privata: la scelta vale solo per questa sessione */
+    }
+    applica(c);
+    if (banner) banner.hidden = true;
+  }
+
+  function apri() {
+    if (!banner) return;
+    const c = leggi();
+    if (chkStat) chkStat.checked = c?.statistiche ?? false;
+    if (chkEst) chkEst.checked = c?.esterni ?? false;
+    banner.hidden = false;
+  }
+
+  const salvato = leggi();
+  if (salvato) applica(salvato);
+  else apri();
+
+  document.querySelectorAll<HTMLElement>('[data-cookie]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      switch (btn.dataset.cookie) {
+        case 'tutto':
+          salva(true, true);
+          break;
+        case 'necessari':
+          salva(false, false);
+          break;
+        case 'personalizza':
+          if (opzioni) opzioni.hidden = false;
+          if (btnSalva) btnSalva.hidden = false;
+          btn.hidden = true;
+          break;
+        case 'salva':
+          salva(chkStat?.checked ?? false, chkEst?.checked ?? false);
+          if (opzioni) opzioni.hidden = true;
+          if (btnSalva) btnSalva.hidden = true;
+          if (btnPers) btnPers.hidden = false;
+          break;
+      }
+    });
+  });
+
+  // Link "Preferenze cookie" nel footer e nella cookie policy.
+  document.querySelectorAll<HTMLElement>('[data-cookie-riapri]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (opzioni) opzioni.hidden = false;
+      if (btnSalva) btnSalva.hidden = false;
+      if (btnPers) btnPers.hidden = true;
+      apri();
+      banner?.scrollIntoView({ block: 'nearest' });
+    });
+  });
+</script>
