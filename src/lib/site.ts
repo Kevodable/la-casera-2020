@@ -136,4 +136,12 @@ export const compilati = <T extends { valore?: string }>(voci: T[]) =>
 export const instagramUrl = (handle: string) =>
   `https://instagram.com/${handle.replace(/^@/, '')}`;
 
+/**
+ * Aggiunge il `base` configurato in astro.config.mjs a un percorso assoluto.
+ * Serve per i link scritti a mano (nav, CTA, favicon...): astro:assets e il
+ * routing di Astro gestiscono gia' da soli il base, questi no.
+ */
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const withBase = (path: string) => `${BASE}${path}`;
+
 export { site };

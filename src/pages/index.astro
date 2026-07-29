@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import home from '../data/home.json';
-import { site, getModalitaHome, getSponsor, dataLunga, compilati } from '../lib/site';
+import { site, getModalitaHome, getSponsor, dataLunga, compilati, withBase } from '../lib/site';
 
 const { modalita, evento } = await getModalitaHome();
 const numeri = compilati(site.numeri);
@@ -35,11 +35,11 @@ const sponsor = await getSponsor();
             </p>
             <div class="btn-row">
               {evento.data.preiscrizione?.attiva && (
-                <a class="btn btn--accent" href={`/eventi/${evento.id}#iscrizione`}>
+                <a class="btn btn--accent" href={withBase(`/eventi/${evento.id}#iscrizione`)}>
                   🎉 Pre-iscriviti
                 </a>
               )}
-              <a class="btn btn--ghost" href={`/eventi/${evento.id}`}>
+              <a class="btn btn--ghost" href={withBase(`/eventi/${evento.id}`)}>
                 Scopri l'evento
               </a>
             </div>
@@ -52,10 +52,10 @@ const sponsor = await getSponsor();
             <h1 class="h-hero">{home.heroIstituzionale.titolo}</h1>
             <p class="lead">{home.heroIstituzionale.testo}</p>
             <div class="btn-row">
-              <a class="btn btn--primary" href={home.heroIstituzionale.ctaPrimaria.url}>
+              <a class="btn btn--primary" href={withBase(home.heroIstituzionale.ctaPrimaria.url)}>
                 {home.heroIstituzionale.ctaPrimaria.testo}
               </a>
-              <a class="btn btn--ghost" href={home.heroIstituzionale.ctaSecondaria.url}>
+              <a class="btn btn--ghost" href={withBase(home.heroIstituzionale.ctaSecondaria.url)}>
                 {home.heroIstituzionale.ctaSecondaria.testo}
               </a>
             </div>
@@ -75,7 +75,7 @@ const sponsor = await getSponsor();
         <p class="eyebrow">{home.chiSiamo.eyebrow}</p>
         <h2 class="h-lg">{home.chiSiamo.titolo}</h2>
         <p class="lead">{home.chiSiamo.testo}</p>
-        <a class="link-arrow" href={home.chiSiamo.cta.url}>
+        <a class="link-arrow" href={withBase(home.chiSiamo.cta.url)}>
           {home.chiSiamo.cta.testo} →
         </a>
       </div>
@@ -129,7 +129,7 @@ const sponsor = await getSponsor();
           <p class="lead" style="color:var(--muted)">
             {dataLunga(evento.data.data)} · {evento.data.luogo.citta}
           </p>
-          <a class="btn btn--accent" href={`/eventi/${evento.id}`}>
+          <a class="btn btn--accent" href={withBase(`/eventi/${evento.id}`)}>
             Scopri l'evento
           </a>
         </div>
@@ -149,7 +149,7 @@ const sponsor = await getSponsor();
                 {home.galleria.titolo}
               </h2>
             </div>
-            <a class="link-arrow" href={home.galleria.cta.url}>
+            <a class="link-arrow" href={withBase(home.galleria.cta.url)}>
               {home.galleria.cta.testo} →
             </a>
           </div>
@@ -179,7 +179,7 @@ const sponsor = await getSponsor();
                 {home.sponsor.titolo}
               </h2>
             </div>
-            <a class="btn btn--ghost btn--sm" href={home.sponsor.cta.url}>
+            <a class="btn btn--ghost btn--sm" href={withBase(home.sponsor.cta.url)}>
               {home.sponsor.cta.testo}
             </a>
           </div>
@@ -202,7 +202,7 @@ const sponsor = await getSponsor();
         <p class="eyebrow socio__eyebrow">{home.socio.eyebrow}</p>
         <h2 class="h-xl" style="color:var(--on-primary)">{home.socio.titolo}</h2>
         <p class="lead socio__lead">{home.socio.testo}</p>
-        <a class="btn btn--solid-light" href={home.socio.cta.url}>
+        <a class="btn btn--solid-light" href={withBase(home.socio.cta.url)}>
           {home.socio.cta.testo}
         </a>
       </div>

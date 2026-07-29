@@ -1,5 +1,5 @@
 ---
-import { site } from '../lib/site';
+import { site, withBase } from '../lib/site';
 
 interface Props {
   title: string;
@@ -26,7 +26,7 @@ const {
 
 const titolo = titleRaw ? title : `${title} — ${site.nome}`;
 const canonical = new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', Astro.site);
-const ogImage = new URL(image, Astro.site);
+const ogImage = new URL(withBase(image), Astro.site);
 const struttura = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
@@ -40,9 +40,9 @@ const struttura = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
 <meta name="theme-color" content="#4B5320" />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+<link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+<link rel="sitemap" href={withBase('/sitemap-index.xml')} />
 
 <!-- Open Graph: e' l'anteprima che vede chi riceve il link su WhatsApp. -->
 <meta property="og:type" content="website" />

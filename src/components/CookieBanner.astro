@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/site';
+
 /*
   Banner cookie con consenso granulare (brief §7).
 
@@ -18,7 +20,7 @@
       <p class="small">
         Usiamo cookie tecnici per far funzionare il sito. Con il tuo consenso usiamo anche
         statistiche anonime e contenuti esterni (mappe, video). Decidi tu.
-        <a href="/cookie">Leggi la cookie policy</a>.
+        <a href={withBase('/cookie')}>Leggi la cookie policy</a>.
       </p>
 
       <div class="cookie__opzioni" id="cookie-opzioni" hidden>

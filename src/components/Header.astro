@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/logo-casera.png';
-import { site } from '../lib/site';
+import { site, withBase } from '../lib/site';
 
 interface Props {
   /** CTA principale: cambia fra modalita' evento e modalita' istituzionale. */
@@ -22,14 +22,17 @@ const voci = [
 ];
 
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const attiva = (url: string) => path === url || path.startsWith(url + '/');
+const attiva = (url: string) => {
+  const full = withBase(url);
+  return path === full || path.startsWith(full + '/');
+};
 ---
 
 {progress && <div class="progress" id="scroll-progress" aria-hidden="true"><span></span></div>}
 
 <header class="site-header" id="site-header">
   <div class="site-header__inner wrap">
-    <a class="brand" href="/">
+    <a class="brand" href={withBase('/')}>
       <Image src={logo} alt="" width={112} densities={[1, 2]} class="brand__logo" />
       <span class="brand__text">
         <span class="brand__name">{site.nome}</span>
@@ -53,14 +56,14 @@ const attiva = (url: string) => path === url || path.startsWith(url + '/');
         {
           voci.map((v) => (
             <li>
-              <a href={v.url} class:list={['site-nav__link', { 'is-active': attiva(v.url) }]}>
+              <a href={withBase(v.url)} class:list={['site-nav__link', { 'is-active': attiva(v.url) }]}>
                 {v.testo}
               </a>
             </li>
           ))
         }
       </ul>
-      <a class="btn btn--primary btn--sm site-nav__cta" href={cta.url}>{cta.testo}</a>
+      <a class="btn btn--primary btn--sm site-nav__cta" href={withBase(cta.url)}>{cta.testo}</a>
     </nav>
   </div>
 </header>
