@@ -1,6 +1,6 @@
 {
   "titolo": "Vieni dentro.",
-  "sottotitolo": "Diventare socio costa poco e cambia il modo in cui vivi gli eventi: non li guardi, li fai.",
+  "sottotitolo": "Diventare associato costa poco e cambia il modo in cui vivi gli eventi: hai sconti, priorità e un gruppo a cui appoggiarti.",
   "quota": {
     "importo": "",
     "periodo": "all'anno",
@@ -8,8 +8,8 @@
   },
   "benefici": [
     "Entri agli eventi dell'associazione",
-    "Voti in assemblea: decidi cosa organizziamo",
-    "Sconti e priorità sulle iniziative riservate ai soci",
+    "Sconti sui biglietti e sui servizi ai nostri eventi",
+    "Inviti prioritari e anteprime riservate agli associati",
     "Entri in un gruppo che lavora e si diverte insieme"
   ],
   "comeFunziona": [
@@ -22,8 +22,8 @@
       "testo": "Ti contattiamo per completare il tesseramento e rispondere alle tue domande."
     },
     {
-      "titolo": "3. Sei socio",
-      "testo": "Ricevi la tessera e da lì in poi decidi anche tu."
+      "titolo": "3. Sei associato",
+      "testo": "Ricevi la tessera e da lì in poi hai sconti e priorità a tutti i nostri eventi."
     }
   ],
   "form": {

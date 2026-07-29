@@ -184,13 +184,13 @@ const d = evento.data;
 
   {
     d.preiscrizione.attiva && !d.annullato && (
-      <section id="iscrizione" class="section socio">
+      <section id="iscrizione" class="section cta-evidenza">
         <div class="wrap reveal">
-          <p class="eyebrow socio__eyebrow">{d.preiscrizione.titolo}</p>
+          <p class="eyebrow cta-evidenza__eyebrow">{d.preiscrizione.titolo}</p>
           <h2 class="h-lg" style="color:var(--on-primary)">
             {d.titolo}
           </h2>
-          <p class="lead socio__lead">{d.preiscrizione.testo}</p>
+          <p class="lead cta-evidenza__lead">{d.preiscrizione.testo}</p>
           {site.contatti.email ? (
             <a
               class="btn btn--solid-light"
@@ -231,17 +231,17 @@ const d = evento.data;
     font-weight: 600;
   }
 
-  .socio {
+  .cta-evidenza {
     background: var(--primary);
     border-radius: var(--r-lg);
     margin-inline: var(--gutter);
   }
 
-  .socio__eyebrow {
+  .cta-evidenza__eyebrow {
     color: rgb(var(--c-bg) / 85%);
   }
 
-  .socio__lead {
+  .cta-evidenza__lead {
     color: rgb(var(--c-bg) / 92%);
     max-width: var(--maxw-narrow);
     margin-block: 1rem 1.75rem;

@@ -29,7 +29,7 @@ npm run dev       # http://localhost:4321
 │   ├── components/         Header, Footer, BaseHead (SEO), CookieBanner
 │   ├── content/            content collections (eventi, news, galleria, sponsor, direttivo)
 │   ├── content.config.ts   schema Zod delle collection
-│   ├── data/                testi/dati home, associazione, soci, sponsor, contatti (JSON)
+│   ├── data/                testi/dati home, associazione, associati, sponsor, contatti (JSON)
 │   ├── layouts/Base.astro  layout condiviso: head, header, footer, cookie banner
 │   ├── lib/site.ts         helper (date, mappe, modalità home, sponsor/eventi ordinati)
 │   ├── styles/             tokens.css (design token) + global.css
@@ -47,8 +47,9 @@ La home (`src/pages/index.astro`) sceglie da sola la modalità (brief §1, §6 F
 
 ## Stato
 
-- **Fatto:** Home (entrambe le modalità), `/associazione`, `/eventi` (indice + dettaglio dinamico da content collection), `/soci`, `/sponsor`, `/contatti` (con mappa a consenso, brief §7), `/galleria`.
-- **Da fare:** `/news`, `/privacy`, `/cookie` — i link di navigazione verso queste tre rotte per ora non risolvono (404). I form di contatto (soci, sponsor, contatti) sono CTA `mailto:` — nessun backend collegato: da sostituire con un vero servizio (Netlify Forms, Formspree...) quando ce n'è uno.
+- **Fatto:** Home (entrambe le modalità), `/associazione`, `/eventi` (indice + dettaglio dinamico da content collection), `/associati`, `/sponsor`, `/contatti` (con mappa a consenso, brief §7), `/galleria`.
+- **Da fare:** `/news`, `/privacy`, `/cookie` — i link di navigazione verso queste tre rotte per ora non risolvono (404). I form di contatto (associati, sponsor, contatti) sono CTA `mailto:` — nessun backend collegato: da sostituire con un vero servizio (Netlify Forms, Formspree...) quando ce n'è uno.
+- **Terminologia:** chi entra in associazione è un **associato**, non un "socio" — nessun potere decisionale/di voto, solo vantaggi (sconti sugli eventi, inviti prioritari). Non usare "socio" da nessuna parte nei contenuti.
 - Le collection `galleria`, `sponsor`, `news`, `direttivo` sono vuote (nessun file in `src/content/*`): le relative sezioni di home/pagine si nascondono automaticamente finché non vengono aggiunti contenuti.
 
 ## Deploy

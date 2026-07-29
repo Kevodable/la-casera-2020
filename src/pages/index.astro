@@ -195,15 +195,15 @@ const sponsor = await getSponsor();
     )
   }
 
-  <!-- DIVENTA SOCIO -->
-  <section class="section socio">
+  <!-- DIVENTA ASSOCIATO -->
+  <section class="section cta-evidenza">
     <div class="wrap">
       <div class="reveal">
-        <p class="eyebrow socio__eyebrow">{home.socio.eyebrow}</p>
-        <h2 class="h-xl" style="color:var(--on-primary)">{home.socio.titolo}</h2>
-        <p class="lead socio__lead">{home.socio.testo}</p>
-        <a class="btn btn--solid-light" href={withBase(home.socio.cta.url)}>
-          {home.socio.cta.testo}
+        <p class="eyebrow cta-evidenza__eyebrow">{home.associati.eyebrow}</p>
+        <h2 class="h-xl" style="color:var(--on-primary)">{home.associati.titolo}</h2>
+        <p class="lead cta-evidenza__lead">{home.associati.testo}</p>
+        <a class="btn btn--solid-light" href={withBase(home.associati.cta.url)}>
+          {home.associati.cta.testo}
         </a>
       </div>
     </div>
@@ -247,17 +247,17 @@ const sponsor = await getSponsor();
     margin-bottom: 2rem;
   }
 
-  .socio {
+  .cta-evidenza {
     background: var(--primary);
     border-radius: var(--r-lg);
     margin-inline: var(--gutter);
   }
 
-  .socio__eyebrow {
+  .cta-evidenza__eyebrow {
     color: rgb(var(--c-bg) / 85%);
   }
 
-  .socio__lead {
+  .cta-evidenza__lead {
     color: rgb(var(--c-bg) / 92%);
     max-width: var(--maxw-narrow);
     margin-block: 1rem 1.75rem;

@@ -3,12 +3,12 @@
   "nomeEsteso": "Associazione La Casera 2020",
   "payoff": "Facciamo succedere le cose a Cappella Maggiore.",
   "descrizioneBreve": "Siamo un gruppo di volontari di Cappella Maggiore. Organizziamo feste, sagre e serate che riempiono la piazza.",
-  "descrizioneSeo": "Associazione La Casera 2020: feste, sagre ed eventi a Cappella Maggiore (TV). Scopri chi siamo, i prossimi eventi e come diventare socio o sponsor.",
+  "descrizioneSeo": "Associazione La Casera 2020: feste, sagre ed eventi a Cappella Maggiore (TV). Scopri chi siamo, i prossimi eventi e come diventare associato o sponsor.",
   "modalitaHome": "auto",
   "numeri": [
     { "valore": "2020", "etichetta": "Dal" },
     { "valore": "", "etichetta": "Eventi organizzati" },
-    { "valore": "", "etichetta": "Soci" },
+    { "valore": "", "etichetta": "Associati" },
     { "valore": "", "etichetta": "Persone agli eventi" }
   ],
   "contatti": {

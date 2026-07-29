@@ -1,27 +1,27 @@
 ---
 import Base from '../layouts/Base.astro';
-import soci from '../data/soci.json';
+import associati from '../data/associati.json';
 import { site, mailtoUrl } from '../lib/site';
 ---
 
-<Base title="Diventa socio" description={soci.sottotitolo}>
+<Base title="Diventa associato" description={associati.sottotitolo}>
   <section class="section hero">
     <div class="wrap hero__grid">
       <div class="reveal">
-        <p class="eyebrow">Diventa socio</p>
-        <h1 class="h-xl">{soci.titolo}</h1>
-        <p class="lead">{soci.sottotitolo}</p>
+        <p class="eyebrow">Diventa associato</p>
+        <h1 class="h-xl">{associati.titolo}</h1>
+        <p class="lead">{associati.sottotitolo}</p>
       </div>
       <div class="card quota reveal">
-        {soci.quota.importo ? (
+        {associati.quota.importo ? (
           <p class="h-xl" style="color:var(--primary)">
-            {soci.quota.importo}
-            <span class="small" style="font-weight:600"> / {soci.quota.periodo}</span>
+            {associati.quota.importo}
+            <span class="small" style="font-weight:600"> / {associati.quota.periodo}</span>
           </p>
         ) : (
-          <p class="lead" style="margin:0">Quota {soci.quota.periodo}</p>
+          <p class="lead" style="margin:0">Quota {associati.quota.periodo}</p>
         )}
-        {soci.quota.nota && <p class="small">{soci.quota.nota}</p>}
+        {associati.quota.nota && <p class="small">{associati.quota.nota}</p>}
       </div>
     </div>
   </section>
@@ -30,7 +30,7 @@ import { site, mailtoUrl } from '../lib/site';
     <div class="wrap">
       <p class="eyebrow">Cosa ottieni</p>
       <ul class="benefici reveal">
-        {soci.benefici.map((b) => (
+        {associati.benefici.map((b) => (
           <li><span>✓</span><span>{b}</span></li>
         ))}
       </ul>
@@ -41,7 +41,7 @@ import { site, mailtoUrl } from '../lib/site';
     <div class="wrap">
       <p class="eyebrow">Come funziona</p>
       <div class="grid grid--2 reveal">
-        {soci.comeFunziona.map((step) => (
+        {associati.comeFunziona.map((step) => (
           <div class="card">
             <p class="h-sm" style="margin-bottom:0.5rem">{step.titolo}</p>
             <p class="small">{step.testo}</p>
@@ -53,8 +53,8 @@ import { site, mailtoUrl } from '../lib/site';
 
   <section class="section section--dark">
     <div class="wrap reveal">
-      <p class="eyebrow">{soci.form.titolo}</p>
-      <p class="lead" style="color:var(--muted);margin-bottom:1.5rem;max-width:var(--maxw-narrow)">{soci.form.testo}</p>
+      <p class="eyebrow">{associati.form.titolo}</p>
+      <p class="lead" style="color:var(--muted);margin-bottom:1.5rem;max-width:var(--maxw-narrow)">{associati.form.testo}</p>
       {site.contatti.email ? (
         <a class="btn btn--accent" href={mailtoUrl(site.contatti.email, 'Richiesta tesseramento', 'Nome e cognome:\nTelefono:\n')}>
           Richiedi il tesseramento

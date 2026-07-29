@@ -4,7 +4,7 @@
     "sottotitolo": "Facciamo succedere le cose a Cappella Maggiore.",
     "testo": "Feste, sagre e serate che riempiono la piazza. Tutto organizzato da volontari del posto.",
     "ctaPrimaria": { "testo": "Scopri chi siamo", "url": "/associazione" },
-    "ctaSecondaria": { "testo": "Diventa socio", "url": "/soci" }
+    "ctaSecondaria": { "testo": "Diventa associato", "url": "/associati" }
   },
   "chiSiamo": {
     "eyebrow": "Chi siamo",
@@ -38,11 +38,11 @@
       }
     ]
   },
-  "socio": {
-    "eyebrow": "Diventa socio",
+  "associati": {
+    "eyebrow": "Diventa associato",
     "titolo": "Vieni dentro.",
-    "testo": "Entri agli eventi, decidi cosa organizziamo, e trovi un gruppo che si diverte a lavorare.",
-    "cta": { "testo": "Voglio iscrivermi", "url": "/soci" }
+    "testo": "Hai sconti sugli eventi, inviti prioritari e trovi un gruppo che si diverte a lavorare.",
+    "cta": { "testo": "Voglio iscrivermi", "url": "/associati" }
   },
   "sponsor": {
     "eyebrow": "Sponsor",

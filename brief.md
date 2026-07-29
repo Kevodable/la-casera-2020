@@ -15,7 +15,7 @@ Non è il sito dell'evento *Casera Italiana*: è il sito dell'associazione, di c
 
 **Ciclo di vita del sito**
 - **Modalità evento** (settimane prima → giorno dell'evento): l'evento in corso occupa la home, CTA pre-iscrizione in primo piano.
-- **Modalità istituzionale** (resto dell'anno): l'associazione occupa la home, gli eventi passati diventano galleria e prova sociale, la CTA passa a "Diventa socio" / "Diventa sponsor".
+- **Modalità istituzionale** (resto dell'anno): l'associazione occupa la home, gli eventi passati diventano galleria e prova sociale, la CTA passa a "Diventa associato" / "Diventa sponsor".
 
 Il tema deve permettere questo switch **senza rifare il sito** — vedi §6 (Funzionalità F0).
 
@@ -27,7 +27,7 @@ Il tema deve permettere questo switch **senza rifare il sito** — vedi §6 (Fun
 **Far conoscere l'associazione** — chi siamo, cosa facciamo, perché esistiamo. Chi arriva dal volantino, dal QR o dal profilo Instagram deve capire in 10 secondi che dietro l'evento c'è un'organizzazione seria e continuativa, non un gruppo improvvisato.
 
 ### Obiettivi secondari (in ordine)
-1. **Acquisire soci / tesserati** — convertire simpatizzanti e partecipanti agli eventi in soci.
+1. **Acquisire associati / tesserati** — convertire simpatizzanti e partecipanti agli eventi in associati.
 2. **Attrarre sponsor e partner** — dare agli sponsor una vetrina reale e una ragione per pagare (visibilità, numeri, credibilità).
 3. **Raccogliere pre-iscrizioni** agli eventi — funzione operativa: stimare le presenze per dimensionare cucina, staff, sicurezza. Non è l'obiettivo del sito, è uno strumento del sito.
 
@@ -35,7 +35,7 @@ Il tema deve permettere questo switch **senza rifare il sito** — vedi §6 (Fun
 | Obiettivo | Metrica | Target indicativo |
 |---|---|---|
 | Far conoscere | Visitatori unici / tempo medio su "Chi siamo" | — da definire con baseline |
-| Soci | Richieste di tesseramento dal sito | — |
+| Associati | Richieste di tesseramento dal sito | — |
 | Sponsor | Contatti sponsor qualificati ricevuti | — |
 | Pre-iscrizioni | N. pre-iscritti vs. presenze reali (accuratezza stima) | scarto < 25% |
 
@@ -53,9 +53,9 @@ Giovani e famiglie del trevigiano, comunità locale. Arriva da Instagram, WhatsA
 **Domanda a cui il sito deve rispondere in 5 secondi:** *"Vale la pena venirci?"*
 **Device:** mobile, quasi sempre. Spesso su rete lenta, spesso in movimento.
 
-### B. Il socio potenziale
+### B. L'associato potenziale
 Ha già partecipato a un evento, conosce qualcuno dell'associazione, si è divertito.
-**Vuole sapere:** cosa fa l'associazione tutto l'anno, cosa comporta essere socio (costi, impegno, benefici), come ci si iscrive.
+**Vuole sapere:** cosa fa l'associazione tutto l'anno, cosa comporta essere associato (costi, impegno, vantaggi), come ci si iscrive.
 **Domanda:** *"Cosa ci guadagno e cosa mi costa?"*
 
 ### C. Lo sponsor / partner commerciale
@@ -79,11 +79,11 @@ Architettura: **home istituzionale + pagine di approfondimento**. Non one-page �
 | # | Sezione | Contenuto | CTA |
 |---|---|---|---|
 | 1 | **Hero** | Identità dell'associazione + evento in evidenza (in modalità evento) | *Pre-iscriviti* (evento) / *Scopri chi siamo* |
-| 2 | **Chi siamo (sintesi)** | 3 righe + 3 numeri chiave (anno di fondazione, n. eventi, n. soci) | *Leggi la nostra storia* |
+| 2 | **Chi siamo (sintesi)** | 3 righe + 3 numeri chiave (anno di fondazione, n. eventi, n. associati) | *Leggi la nostra storia* |
 | 3 | **Prossimo evento** | Card evento: nome, data, luogo, cosa succede | *Pre-iscriviti* |
 | 4 | **Cosa facciamo** | 3-4 card: eventi, comunità, territorio, volontariato | — |
 | 5 | **Galleria** | Carosello foto/video edizioni passate — la prova sociale più forte che avete | *Vedi tutte le foto* |
-| 6 | **Diventa socio** | Blocco a contrasto, benefici in bullet | *Voglio iscrivermi* |
+| 6 | **Diventa associato** | Blocco a contrasto, vantaggi in bullet | *Voglio iscrivermi* |
 | 7 | **Sponsor** | Loghi partner + invito a diventare sponsor | *Diventa sponsor* |
 | 8 | **Dove siamo / Contatti** | Mappa, indirizzo, social | — |
 | 9 | **Footer** | Dati associazione, CF/P.IVA, privacy, cookie, credits | — |
@@ -92,7 +92,7 @@ Architettura: **home istituzionale + pagine di approfondimento**. Non one-page �
 - **/associazione** — Storia, missione, statuto (PDF), direttivo, valori.
 - **/eventi** — Elenco eventi: prossimi + archivio. Ogni evento ha la sua pagina.
 - **/eventi/casera-italiana** — Pagina evento completa (vedi struttura sotto).
-- **/soci** — Come diventare socio: quota, benefici, form di richiesta.
+- **/associati** — Come diventare associato: quota, vantaggi, form di richiesta.
 - **/sponsor** — Perché sponsorizzare: numeri, pacchetti, form contatto.
 - **/galleria** — Foto e video per edizione.
 - **/news** — Comunicazioni, aggiornamenti (anche pochi post, ma vivi).
@@ -150,9 +150,9 @@ Festoso, informale, diretto, **caldo ma non chiassoso**. Parla come una persona 
 > ~~L'associazione si prefigge lo scopo di promuovere attività di carattere ricreativo, culturale e aggregativo sul territorio comunale.~~
 > *(È lo statuto. Lo statuto va in PDF, non in home.)*
 
-**Diventa socio — sì**
+**Diventa associato — sì**
 > **Vieni dentro.**
-> 20€ l'anno. Entri gratis agli eventi, decidi cosa organizziamo, e trovi un gruppo che si diverte a lavorare.
+> 20€ l'anno. Sconti sugli eventi, inviti prioritari, e trovi un gruppo che si diverte a lavorare.
 > [ Voglio iscrivermi ]
 
 **Sponsor — sì** *(registro diverso: qui servono numeri, non entusiasmo)*
@@ -196,7 +196,7 @@ Il sito è il contenitore stabile; l'evento è lo skin.
 ### Must have
 
 **F0 — Gestione contenuti (CMS)**
-Kevin (o un socio) deve poter aggiornare eventi, foto, news e sponsor **senza toccare il codice**. Se ogni modifica passa da uno sviluppatore, il sito si fossilizza al primo evento. Requisito non negoziabile.
+Kevin (o un membro del direttivo) deve poter aggiornare eventi, foto, news e sponsor **senza toccare il codice**. Se ogni modifica passa da uno sviluppatore, il sito si fossilizza al primo evento. Requisito non negoziabile.
 Include lo **switch home evento/istituzionale** come impostazione, non come intervento di sviluppo.
 
 **F1 — Form pre-iscrizione**
@@ -232,7 +232,7 @@ Link social ben visibili. Feed Instagram embeddato **solo se non degrada le perf
 ### Nice to have (fase 2)
 - Newsletter (integrazione Mailchimp/Brevo) alimentata dall'opt-in del form
 - Tesseramento online con pagamento
-- Area riservata soci
+- Area riservata associati
 - Countdown all'evento in hero
 - Condivisione WhatsApp con testo precompilato (canale n.1 del passaparola locale)
 - QR code evento generato dal CMS per volantini e materiali
@@ -266,8 +266,8 @@ Link social ben visibili. Feed Instagram embeddato **solo se non degrada le perf
 
 | # | Domanda | Chi risponde |
 |---|---|---|
-| 1 | Anno di fondazione, n. soci, n. eventi fatti, presenze medie — **servono numeri reali** per home e pagina sponsor | Kevin |
-| 2 | Quota associativa e benefici concreti del socio | Kevin / direttivo |
+| 1 | Anno di fondazione, n. associati, n. eventi fatti, presenze medie — **servono numeri reali** per home e pagina sponsor | Kevin |
+| 2 | Quota associativa e vantaggi concreti dell'associato | Kevin / direttivo |
 | 3 | Pacchetti sponsor: quanti livelli, cosa includono, prezzi | Kevin / direttivo |
 | 4 | Chi aggiorna il sito dopo il lancio? (determina la scelta del CMS) | Kevin |
 | 5 | Esiste archivio foto/video delle edizioni passate? In che stato? | Kevin |
