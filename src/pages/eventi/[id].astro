@@ -51,7 +51,7 @@ const d = evento.data;
           )
         }
       </div>
-      <div class="hero__photo reveal" aria-hidden="true">
+      <div class:list={['hero__photo', 'reveal', { 'hero__photo--placeholder': !d.copertina }]} aria-hidden="true">
         {d.copertina ? (
           <Image src={d.copertina} alt={d.copertinaAlt} width={640} height={800} style="width:100%;height:100%;object-fit:cover" />
         ) : (
@@ -220,9 +220,14 @@ const d = evento.data;
   .hero__photo {
     aspect-ratio: 4 / 5;
     border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero__photo--placeholder {
     border: 1px dashed var(--line-strong);
     background: var(--surface);
-    overflow: hidden;
+    box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: center;

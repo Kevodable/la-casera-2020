@@ -14,7 +14,8 @@ luogo:
   provincia: TV
   mapsQuery: Area 1° Maggio, Via Masarè 14a, Cappella Maggiore TV
   noteParcheggio: Parcheggio disponibile in loco. Segui le indicazioni all'arrivo.
-copertinaAlt: ''
+copertina: ./casera-italiana-cover.jpg
+copertinaAlt: 'Vista dall''alto della piazza gremita durante una serata Casera Italiana'
 marquee:
   - 10 OTTOBRE 2026
   - CAPPELLA MAGGIORE (TV)
