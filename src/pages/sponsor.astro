@@ -62,7 +62,7 @@ const sponsor = await getSponsor();
         {
           pagina.pacchetti.voci.map((p) => (
             <div class:list={['card', 'pacchetto', { 'pacchetto--evidenza': p.inEvidenza }]}>
-              {p.inEvidenza && <p class="badge">Più scelto</p>}
+              {p.inEvidenza && <p class="badge badge--accent">Più scelto</p>}
               <p class="h-md" style="margin-top:0.5rem">{p.nome}</p>
               {p.prezzo && <p class="h-sm" style="color:var(--primary)">{p.prezzo}</p>}
               <p class="small" style="margin-bottom:1rem">{p.descrizione}</p>

@@ -82,7 +82,13 @@ import { site, mailtoUrl } from '../lib/site';
     list-style: none;
     display: grid;
     gap: 1rem;
-    max-width: var(--maxw-text);
+  }
+
+  @media (min-width: 700px) {
+    .benefici {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 2.5rem;
+    }
   }
 
   .benefici li {
